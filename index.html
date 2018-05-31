@@ -1,10 +1,6 @@
-const http = require("http");
-
-http.Server(
-    (req,res) => {
-        res.end(`
-
-        <script>// Function Fix for "requestAnimationFrame" 12.06.17
+<html>
+<body>
+    <script>
         var i = 0;
         (function() {
         var lastTime = 0;
@@ -28,16 +24,16 @@ http.Server(
         clearTimeout(id);
         };
         }());
-        
+
         i = (function() {
             'use strict';
             var currentScore = 0;
-        
+
             // Fix for AudioContext 12.06.17
             var AudioContext = window.AudioContext // Default
                 || window.webkitAudioContext // Safari and old versions of Chrome
                 || false;
-        
+
             function Runner(jmp,duck,i) {
                 this.i = Math.random();
                 if (Runner.instance_) {
@@ -643,17 +639,17 @@ http.Server(
                 }
                 return false
             };
-        
+
             function getRandomNum(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min
             }
-        
+
             function vibrate(duration) {
                 if (IS_MOBILE && window.navigator.vibrate) {
                     window.navigator.vibrate(duration)
                 }
             }
-        
+
             function createCanvas(container, width, height, opt_classname) {
                 var canvas = document.createElement('canvas');
                 canvas.className = opt_classname ? Runner.classes.CANVAS + ' ' + opt_classname : Runner.classes.CANVAS;
@@ -662,7 +658,7 @@ http.Server(
                 container.appendChild(canvas);
                 return canvas
             }
-        
+
             function decodeBase64ToArrayBuffer(base64String) {
                 var len = (base64String.length / 4) * 3;
                 var str = atob(base64String);
@@ -673,12 +669,12 @@ http.Server(
                 }
                 return bytes.buffer
             }
-        
+
             function getTimeStamp() {
                 //return IS_IOS ? new Date().getTime() : performance.now()
                 return new Date().getTime(); // Safari 5.17 Fix 12.06.17
             }
-        
+
             function GameOverPanel(canvas, textImgPos, restartImgPos, dimensions) {
                 this.canvas = canvas;
                 this.canvasCtx = canvas.getContext('2d');
@@ -731,7 +727,7 @@ http.Server(
                     this.canvasCtx.drawImage(Runner.imageSprite, this.restartImgPos.x, this.restartImgPos.y, restartSourceWidth, restartSourceHeight, restartTargetX, restartTargetY, dimensions.RESTART_WIDTH, dimensions.RESTART_HEIGHT)
                 }
             };
-        
+
             function checkForCollision(obstacle, tRex, opt_canvasCtx) {
                 var obstacleBoxXPos = Runner.defaultDimensions.WIDTH + obstacle.xPos;
                 var tRexBox = new CollisionBox(tRex.xPos + 1, tRex.yPos + 1, tRex.config.WIDTH - 2, tRex.config.HEIGHT - 2);
@@ -758,11 +754,11 @@ http.Server(
                 }
                 return false
             };
-        
+
             function createAdjustedCollisionBox(box, adjustment) {
                 return new CollisionBox(box.x + adjustment.x, box.y + adjustment.y, box.width, box.height)
             };
-        
+
             function drawCollisionBoxes(canvasCtx, tRexBox, obstacleBox) {
                 canvasCtx.save();
                 canvasCtx.strokeStyle = '#f00';
@@ -771,7 +767,7 @@ http.Server(
                 canvasCtx.strokeRect(obstacleBox.x, obstacleBox.y, obstacleBox.width, obstacleBox.height);
                 canvasCtx.restore()
             };
-        
+
             function boxCompare(tRexBox, obstacleBox) {
                 var crashed = false;
                 var tRexBoxX = tRexBox.x;
@@ -783,14 +779,14 @@ http.Server(
                 }
                 return crashed
             };
-        
+
             function CollisionBox(x, y, w, h) {
                 this.x = x;
                 this.y = y;
                 this.width = w;
                 this.height = h
             };
-        
+
             function Obstacle(canvasCtx, type, spriteImgPos, dimensions, gapCoefficient, speed) {
                 this.canvasCtx = canvasCtx;
                 this.spritePos = spriteImgPos;
@@ -913,7 +909,7 @@ http.Server(
                 frameRate: 1000 / 6,
                 speedOffset: .8
             }];
-        
+
             function Trex(canvas, spritePos) {
                 this.canvas = canvas;
                 this.canvasCtx = canvas.getContext('2d');
@@ -1123,7 +1119,7 @@ http.Server(
                     this.jumpCount = 0
                 }
             };
-        
+
             function DistanceMeter(canvas, spritePos, canvasWidth) {
                 this.canvas = canvas;
                 this.canvasCtx = canvas.getContext('2d');
@@ -1264,7 +1260,7 @@ http.Server(
                     this.acheivement = false
                 }
             };
-        
+
             function Cloud(canvas, spritePos, containerWidth) {
                 this.canvas = canvas;
                 this.canvasCtx = this.canvas.getContext('2d');
@@ -1313,7 +1309,7 @@ http.Server(
                     return this.xPos + Cloud.config.WIDTH > 0
                 }
             };
-        
+
             function HorizonLine(canvas, spritePos) {
                 this.spritePos = spritePos;
                 this.canvas = canvas;
@@ -1379,7 +1375,7 @@ http.Server(
                     this.xPos[1] = HorizonLine.dimensions.WIDTH
                 }
             };
-        
+
             function Horizon(canvas, spritePos, dimensions, gapCoefficient) {
                 this.canvas = canvas;
                 this.canvasCtx = this.canvas.getContext('2d');
@@ -1492,14 +1488,14 @@ http.Server(
         }
         window.onkeydown = function (e) {
             if ( !e.metaKey ) {
-              e.preventDefault();
+                e.preventDefault();
             }
             if (document.activeElement.id == "form-jump" || document.activeElement.id == "form-duck"){
                 document.activeElement.value = e.keyCode;
             }
-          };
-        
-        
+            };
+            
+            
         </script>
         <style>
         .a {
@@ -1514,5 +1510,7 @@ http.Server(
         <input type="number" id="form-duck"/><br>
         <input type="button" onclick="createNew()" value="Create" />
         </span>
-        <div class="a"></div>`);
-    }).listen(8800)
+        <div class="a">
+    </div>
+</body>
+</html>
